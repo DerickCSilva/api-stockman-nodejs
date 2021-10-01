@@ -30,7 +30,7 @@ class UserController {
             await existsOrError(telephone, 'Telefone não informado.');
             await existsOrError(birthDate, 'Data de nascimento não informado.');
 
-            const user = await User.findOne({ where: { username } });
+            let user = await User.findOne({ where: { username } });
             
             if(user) {
                 return res.status(302).json({
