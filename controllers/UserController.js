@@ -1,4 +1,5 @@
 // Modules
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -7,9 +8,6 @@ const User = require('../models/User');
 
 // Functions
 const { existsOrError, equalsOrError } = require('../functions/Validation');
-
-// Secret
-const JwtSecret = 'qj6C0!ZTv9LH5p2$80MM3MAny@XS&ol^^LGm3Uj&DlEKk!@^Vt';
 
 // class UserController
 class UserController {
@@ -66,7 +64,7 @@ class UserController {
             await existsOrError(username, 'Informe o seu usuário!');
             await existsOrError(password, 'Informe a sua senha!');
 
-            user = await User.findOne({ where: { username } });            
+            user = await User.findOne({ where: { username } });
         } catch (err) {
             console.log(err);
             return res.status(500).json({
@@ -75,14 +73,14 @@ class UserController {
             });
         }
 
-        let { id, email, admin } = user;
-
         if (!user) {
             return res.status(404).json({
                 status: res.statusCode,
                 message: 'Usuário não encontrado!'
             });
         }
+        
+        let { id, email, admin } = user;
 
         let confirmPass = bcrypt.compareSync(password, user.password);
 
@@ -100,7 +98,7 @@ class UserController {
             admin
         }
 
-        jwt.sign(payload, JwtSecret, { expiresIn: '2h' }, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' }, (err, token) => {
             if(err) {
                 return res.status(500).json({
                     status: res.statusCode,

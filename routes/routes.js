@@ -10,7 +10,7 @@ let UserController = require("../controllers/UserController");
 // GET's
 
 // POST's
-router.post('/create/user', UserController.create);
+router.post('/user', UserController.create);
 router.post('/signin', UserController.signin);
 
 module.exports = router;
