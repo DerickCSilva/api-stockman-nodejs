@@ -35,5 +35,6 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use('/api', routes);
 
-// Listen on port 3434
-app.listen(3434, () => console.log('Backend running on port 3434 🚀...'));
+// Listen on port
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Backend running on port ${port} 🚀...`));
