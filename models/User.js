@@ -12,11 +12,11 @@ const User = connection.define('users', {
     },
     username: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     password: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     admin: {
         type: Sequelize.BOOLEAN,

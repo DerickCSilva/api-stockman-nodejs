@@ -10,16 +10,12 @@ const Product = connection.define('products', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    password: {
-        type: Sequelize.TEXT,
-        allowNull: false
-    },
     unitPrice: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
         allowNull: false
     },
     costPrice: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false
     }
 });

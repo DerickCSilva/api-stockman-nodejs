@@ -9,6 +9,8 @@ let ProductController = require("../controllers/ProductController");
 // Routes
 
 // GET's
+router.get('/products/:page', ProductController.allProducts);
+router.get('/users/:page', UserController.allUsers);
 
 // POST's
 router.post('/user', UserController.create);
