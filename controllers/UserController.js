@@ -10,15 +10,15 @@ const User = require('../models/User');
 // Functions
 const { existsOrError } = require('../functions/Validation');
 
+const encryptPassword = (password) => {
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
+}
+
 // class UserController
-class UserController {
+class UserController {    
     async create(req, res) {
         let { name, email, admin, telephone, birthDate } = req.body;
-
-        const encryptPassword = (password) => {
-            const salt = bcrypt.genSaltSync(10);
-            return bcrypt.hashSync(password, salt);
-        }
 
         let nameBySpace = name.split(' ');
         let firstName = nameBySpace[0];
@@ -126,7 +126,7 @@ class UserController {
         });
     }
 
-    async allUsers(req, res) {
+    async all(req, res) {
         try {
             let { page } = req.params || 1;
             
@@ -177,6 +177,66 @@ class UserController {
             });
         } catch (err) {
             console.error(err)
+            return res.status(500).json({
+                status: res.statusCode,
+                err
+            });
+        }
+    }
+
+    async edit(req, res) {
+        let { id, name, email, admin, telephone, birthDate } = req.body;
+        
+        try {
+            await existsOrError(id, 'ID do usuário não informado!');
+            await existsOrError(name, 'Nome do usuário não informado!');
+            await existsOrError(birthDate, 'Data de nascimento não informada!');
+            await existsOrError(email, 'E-mail do usuário não informado!');
+        } catch (err) {
+            return res.status(400).json({
+                status: res.statusCode,
+                err
+            });            
+        }
+
+        let nameBySpace = name.split(' ');
+        let firstName = nameBySpace[0];
+        let lastName = nameBySpace[nameBySpace.length - 1];
+
+        let username = (firstName + lastName).toLowerCase();
+        
+        birthDate = birthDate.replace(/\//g, '');
+
+        try {
+            let user = await User.findOne({ where: { id }});
+            
+            let hash = encryptPassword(birthDate);
+
+            if (user) {
+                await User.update({
+                    name,
+                    email,
+                    username,
+                    password: hash,
+                    admin,
+                    telephone,
+                    birthDate
+                }, {
+                    where: { id }
+                });
+
+                return res.json({
+                    status: res.statusCode,
+                    message: 'Usuário alterado com sucesso!'
+                });
+            } else {
+                return res.status(404).json({
+                    status: res.statusCode,
+                    message: 'Usuário não encontrado!'
+                });
+            }
+        } catch (err) {
+            console.log(err);
             return res.status(500).json({
                 status: res.statusCode,
                 err

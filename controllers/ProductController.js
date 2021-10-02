@@ -46,7 +46,7 @@ class ProductController {
         }
     }
 
-    async allProducts(req, res) {
+    async all(req, res) {
         try {
             let { page } = req.params || 1;
             
@@ -104,6 +104,51 @@ class ProductController {
             });
         } catch (err) {
             console.error(err)
+            return res.status(500).json({
+                status: res.statusCode,
+                err
+            });
+        }
+    }
+    
+    async edit(req, res) {
+        let { id, name, quantity, unitPrice, costPrice } = req.body;
+        
+        try {
+            await existsOrError(id, 'ID do usuário não informado!');
+            await existsOrError(name, 'Nome do produto não informado!');
+        } catch (err) {
+            return res.status(400).json({
+                status: res.statusCode,
+                err
+            });            
+        }
+
+        try {
+            let product = await Product.findOne({ where: { id } });
+
+            if (product) {
+                await Product.update({
+                    name,
+                    quantity,
+                    unitPrice,
+                    costPrice
+                }, {
+                    where: { id }
+                });
+
+                return res.json({
+                    status: res.statusCode,
+                    message: 'Produto alterado com sucesso!'
+                });
+            } else {
+                return res.status(404).json({
+                    status: res.statusCode,
+                    message: 'Produto não encontrado!'
+                });
+            }
+        } catch (err) {
+            console.log(err);
             return res.status(500).json({
                 status: res.statusCode,
                 err

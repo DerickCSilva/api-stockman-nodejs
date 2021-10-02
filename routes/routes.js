@@ -9,12 +9,16 @@ let ProductController = require("../controllers/ProductController");
 // Routes
 
 // GET's
-router.get('/products/:page', ProductController.allProducts);
-router.get('/users/:page', UserController.allUsers);
+router.get('/users/:page', UserController.all);
+router.get('/products/:page', ProductController.all);
 
 // POST's
 router.post('/user', UserController.create);
 router.post('/signin', UserController.signin);
 router.post('/product', ProductController.create);
+
+// PATCH's
+router.patch('/user', UserController.edit);
+router.patch('/product', ProductController.edit);
 
 module.exports = router;
