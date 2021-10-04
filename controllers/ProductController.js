@@ -171,11 +171,6 @@ class ProductController {
 
         let product = await Product.findOne({ where: { id } });
 
-        let unitPriceFormatted = formatMoney(product.unitPrice);
-        let costPriceFormatted = formatMoney(product.costPrice);
-        product.unitPrice = unitPriceFormatted;
-        product.costPrice = costPriceFormatted;
-
         if (product) {
             return res.json({
                 status: res.statusCode,
