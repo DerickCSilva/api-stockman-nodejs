@@ -111,8 +111,8 @@ class ProductController {
             await existsOrError(id, 'ID do usuário não informado!');
             await existsOrError(name, 'Nome do produto não informado!');
         } catch (err) {
-            return res.status(400).json({
-                status: res.statusCode,
+            return res.json({
+                status: 400,
                 err
             });
         }
