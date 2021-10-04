@@ -110,6 +110,9 @@ class ProductController {
         try {
             await existsOrError(id, 'ID do usuário não informado!');
             await existsOrError(name, 'Nome do produto não informado!');
+            await existsOrError(quantity, 'Quantidade do produto não informada!');
+            await existsOrError(unitPrice, 'Preço unitário não informado!');
+            await existsOrError(costPrice, 'Preço de custo não informado!');
         } catch (err) {
             return res.json({
                 status: 400,
