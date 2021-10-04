@@ -49,14 +49,14 @@ class ProductController {
     async all(req, res) {
         try {
             let { page } = req.params || 1;
-            
+
             if (!(page >= 1)) {
                 return res.status(400).json({
                     status: res.statusCode,
                     err: 'Número de página inválido!'
                 });
             }
-            
+
             let offset;
             let limit = 10;
 
@@ -83,7 +83,7 @@ class ProductController {
 
             let nextPage;
 
-            if(nextProducts.length > 0) {
+            if (nextProducts.length > 0) {
                 nextPage = true;
             } else {
                 nextPage = false;
@@ -110,10 +110,10 @@ class ProductController {
             });
         }
     }
-    
+
     async edit(req, res) {
         let { id, name, quantity, unitPrice, costPrice } = req.body;
-        
+
         try {
             await existsOrError(id, 'ID do usuário não informado!');
             await existsOrError(name, 'Nome do produto não informado!');
@@ -121,7 +121,7 @@ class ProductController {
             return res.status(400).json({
                 status: res.statusCode,
                 err
-            });            
+            });
         }
 
         try {
@@ -159,7 +159,16 @@ class ProductController {
     async getById(req, res) {
         let { id } = req.body;
 
-        let product = await Product.findOne({ where: { id } });
+        try {
+            await existsOrError(id, 'ID não informado!');
+
+            let product = await Product.findOne({ where: { id } });
+        } catch (err) {
+            return res.json({
+                status: 400,
+                err
+            });
+        }
 
         if (product) {
             return res.json({
