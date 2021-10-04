@@ -86,7 +86,7 @@ class UserController {
         }
 
         if (!user) {
-            return res.status(404).json({
+            return res.status(200).json({
                 status: res.statusCode,
                 message: 'Usuário não encontrado!'
             });
