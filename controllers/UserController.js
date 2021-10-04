@@ -243,7 +243,7 @@ class UserController {
         }
     }
 
-    async getById(req, res) {
+    async getByUsername(req, res) {
         let { username } = req.body;
 
         let user = await User.findOne({ where: { username } });

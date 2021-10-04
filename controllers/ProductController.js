@@ -155,6 +155,24 @@ class ProductController {
             });
         }
     }
+
+    async getById(req, res) {
+        let { id } = req.body;
+
+        let product = await Product.findOne({ where: { id } });
+
+        if (product) {
+            return res.json({
+                status: res.statusCode,
+                product
+            });
+        } else {
+            return res.json({
+                status: 404,
+                err: 'Produto não encontrado!'
+            });
+        }
+    }
 }
 
 module.exports = new ProductController();

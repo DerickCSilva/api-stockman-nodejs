@@ -16,7 +16,8 @@ router.get('/products/:page', ProductController.all);
 router.post('/user', UserController.create);
 router.post('/signin', UserController.signin);
 router.post('/product', ProductController.create);
-router.post('/userId', UserController.getById);
+router.post('/userId', UserController.getByUsername);
+router.post('/productId', ProductController.getById);
 
 // PATCH's
 router.patch('/user', UserController.edit);
