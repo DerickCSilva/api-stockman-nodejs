@@ -78,8 +78,8 @@ class UserController {
 
             user = await User.findOne({ where: { username } });
         } catch (err) {
-            return res.status(204).json({
-                status: res.statusCode,
+            return res.json({
+                status: 204,
                 err
             });
         }
