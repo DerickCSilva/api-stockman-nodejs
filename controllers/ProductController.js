@@ -21,7 +21,7 @@ class ProductController {
             if (product) {
                 return res.status(302).json({
                     status: res.statusCode,
-                    message: 'Produto já cadastrado.'
+                    err: 'Produto já cadastrado.'
                 });
             }
         } catch (err) {
@@ -36,7 +36,7 @@ class ProductController {
 
             return res.json({
                 status: res.statusCode,
-                message: 'Produto cadastrado!'
+                err: 'Produto cadastrado!'
             });
         } catch (err) {
             return res.status(500).json({
@@ -53,7 +53,7 @@ class ProductController {
             if (!(page >= 1)) {
                 return res.status(400).json({
                     status: res.statusCode,
-                    message: 'Número de página inválido!'
+                    err: 'Número de página inválido!'
                 });
             }
             
@@ -139,12 +139,12 @@ class ProductController {
 
                 return res.json({
                     status: res.statusCode,
-                    message: 'Produto alterado com sucesso!'
+                    err: 'Produto alterado com sucesso!'
                 });
             } else {
                 return res.status(404).json({
                     status: res.statusCode,
-                    message: 'Produto não encontrado!'
+                    err: 'Produto não encontrado!'
                 });
             }
         } catch (err) {

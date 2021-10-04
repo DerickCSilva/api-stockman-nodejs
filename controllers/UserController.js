@@ -47,7 +47,7 @@ class UserController {
             if (user) {
                 return res.status(302).json({
                     status: res.statusCode,
-                    message: 'Usuário já cadastrado.'
+                    err: 'Usuário já cadastrado.'
                 });
             }
         } catch (err) {
@@ -63,7 +63,7 @@ class UserController {
 
         res.json({
             status: res.statusCode,
-            message: 'Usuário cadastrado!'
+            err: 'Usuário cadastrado!'
         });
     }
 
@@ -81,14 +81,14 @@ class UserController {
             console.log(err);
             return res.status(204).json({
                 status: res.statusCode,
-                err
+                
             });
         }
 
         if (!user) {
             return res.status(200).json({
                 status: res.statusCode,
-                message: 'Usuário não encontrado!'
+                err: 'Usuário não encontrado!'
             });
         }
 
@@ -99,7 +99,7 @@ class UserController {
         if (!confirmPass) {
             return res.status(401).json({
                 status: res.statusCode,
-                message: 'Senha inválida!'
+                err: 'Senha inválida!'
             });
         }
 
@@ -133,7 +133,7 @@ class UserController {
             if (!(page >= 1)) {
                 return res.status(400).json({
                     status: res.statusCode,
-                    message: 'Número de página inválido!'
+                    err: 'Número de página inválido!'
                 });
             }
             
@@ -227,12 +227,12 @@ class UserController {
 
                 return res.json({
                     status: res.statusCode,
-                    message: 'Usuário alterado com sucesso!'
+                    err: 'Usuário alterado com sucesso!'
                 });
             } else {
                 return res.status(404).json({
                     status: res.statusCode,
-                    message: 'Usuário não encontrado!'
+                    err: 'Usuário não encontrado!'
                 });
             }
         } catch (err) {
