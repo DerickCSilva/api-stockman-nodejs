@@ -162,13 +162,14 @@ class ProductController {
         try {
             await existsOrError(id, 'ID não informado!');
 
-            let product = await Product.findOne({ where: { id } });
         } catch (err) {
             return res.json({
                 status: 400,
                 err
             });
         }
+        
+        let product = await Product.findOne({ where: { id } });
 
         if (product) {
             return res.json({
