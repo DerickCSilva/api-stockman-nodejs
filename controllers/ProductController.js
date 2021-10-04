@@ -89,13 +89,6 @@ class ProductController {
                 nextPage = false;
             }
 
-            let values = products.map(product => {
-                let unitPriceFormatted = formatMoney(product.unitPrice);
-                let costPriceFormatted = formatMoney(product.costPrice);
-                product.unitPrice = unitPriceFormatted;
-                product.costPrice = costPriceFormatted;
-            });
-
             return res.json({
                 status: res.statusCode,
                 products,
