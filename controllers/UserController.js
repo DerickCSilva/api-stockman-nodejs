@@ -16,7 +16,7 @@ const encryptPassword = (password) => {
 }
 
 // class UserController
-class UserController {    
+class UserController {
     async create(req, res) {
         let { name, email, admin, telephone, birthDate } = req.body;
 
@@ -81,7 +81,7 @@ class UserController {
             console.log(err);
             return res.status(204).json({
                 status: res.statusCode,
-                
+
             });
         }
 
@@ -129,14 +129,14 @@ class UserController {
     async all(req, res) {
         try {
             let { page } = req.params || 1;
-            
+
             if (!(page >= 1)) {
                 return res.status(400).json({
                     status: res.statusCode,
                     err: 'Número de página inválido!'
                 });
             }
-            
+
             let offset;
             let limit = 10;
 
@@ -163,7 +163,7 @@ class UserController {
 
             let nextPage;
 
-            if(nextUsers.length > 0) {
+            if (nextUsers.length > 0) {
                 nextPage = true;
             } else {
                 nextPage = false;
@@ -186,7 +186,7 @@ class UserController {
 
     async edit(req, res) {
         let { id, name, email, admin, telephone, birthDate } = req.body;
-        
+
         try {
             await existsOrError(id, 'ID do usuário não informado!');
             await existsOrError(name, 'Nome do usuário não informado!');
@@ -196,7 +196,7 @@ class UserController {
             return res.status(400).json({
                 status: res.statusCode,
                 err
-            });            
+            });
         }
 
         let nameBySpace = name.split(' ');
@@ -204,12 +204,12 @@ class UserController {
         let lastName = nameBySpace[nameBySpace.length - 1];
 
         let username = (firstName + lastName).toLowerCase();
-        
+
         birthDate = birthDate.replace(/\//g, '');
 
         try {
-            let user = await User.findOne({ where: { id }});
-            
+            let user = await User.findOne({ where: { id } });
+
             let hash = encryptPassword(birthDate);
 
             if (user) {
@@ -240,6 +240,24 @@ class UserController {
             return res.status(500).json({
                 status: res.statusCode,
                 err
+            });
+        }
+    }
+
+    async getById(req, res) {
+        let { username } = req.body;
+
+        let user = await User.findOne({ where: { username } });
+
+        if (user) {
+            return res.json({
+                status: res.statusCode,
+                user
+            });
+        } else {
+            return res.json({
+                status: 404,
+                err: 'Usuário não encontrado!'
             });
         }
     }
