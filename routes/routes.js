@@ -23,4 +23,7 @@ router.post('/productId', ProductController.getById);
 router.patch('/user', UserController.edit);
 router.patch('/product', ProductController.edit);
 
+// DELETE's
+router.delete('/product', ProductController.delete);
+
 module.exports = router;

@@ -152,6 +152,35 @@ class ProductController {
         }
     }
 
+    async delete(req, res) {
+        let { id } = req.body;
+
+        try {
+            await existsOrError(id, 'ID não informado!');
+
+            let product = await Product.destroy({ where: { id } });
+
+            if(product) {
+                return res.json({
+                    status: 200,
+                    err: 'Produto deletado com sucesso!'
+                });
+            } else {                
+                return res.json({
+                    status: 404,
+                    err: 'Produto inexistente!'
+                });
+            }
+
+        } catch (err) {
+            return res.json({
+                status: 400,
+                err
+            });
+        }
+
+    }
+
     async getById(req, res) {
         let { id } = req.body;
 
