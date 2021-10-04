@@ -1,7 +1,9 @@
 // Modules
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-const cors = require('cors');
+const cors = require('cors')
+const session = require('express-session');
 const app = express();
 
 // Models
@@ -17,6 +19,14 @@ const routes = require('./routes/routes');
 // Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Session
+app.use(session({
+    secret: process.env.JWT_SECRET,
+    cookie: {
+        maxAge: '2h'
+    }
+}));
 
 // Set view engine
 app.set('view engine', 'ejs');

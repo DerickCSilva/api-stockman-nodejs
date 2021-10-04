@@ -117,6 +117,7 @@ class UserController {
                     err
                 });
             } else {
+                req.session.username = payload.username;
                 return res.json({
                     status: res.statusCode,
                     ...payload,
