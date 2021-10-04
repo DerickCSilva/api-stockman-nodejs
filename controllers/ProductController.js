@@ -142,8 +142,8 @@ class ProductController {
                     err: 'Produto alterado com sucesso!'
                 });
             } else {
-                return res.status(404).json({
-                    status: res.statusCode,
+                return res.json({
+                    status: 404,
                     err: 'Produto não encontrado!'
                 });
             }
