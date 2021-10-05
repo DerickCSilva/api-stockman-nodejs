@@ -28,5 +28,6 @@ router.patch('/product', authentication, ProductController.edit);
 
 // DELETE's
 router.delete('/product', authentication, ProductController.delete);
+router.delete('/user', authentication, UserController.delete);
 
 module.exports = router;

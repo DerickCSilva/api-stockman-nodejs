@@ -250,6 +250,35 @@ class UserController {
         }
     }
 
+    async delete(req, res) {
+        let { id } = req.body;
+
+        try {
+            await existsOrError(id, 'ID não informado!');
+
+            let user = await User.destroy({ where: { id } });
+
+            if (user) {
+                return res.json({
+                    status: 200,
+                    err: 'Usuário deletado com sucesso!'
+                });
+            } else {
+                return res.json({
+                    status: 404,
+                    err: 'Usuário inexistente!'
+                });
+            }
+
+        } catch (err) {
+            return res.json({
+                status: 400,
+                err
+            });
+        }
+
+    }
+
     async getByUsername(req, res) {
         let { username } = req.body;
 
