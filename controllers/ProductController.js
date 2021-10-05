@@ -1,3 +1,6 @@
+// Modules
+const { Op } = require('sequelize');
+
 // Models
 const Product = require('../models/Product');
 
@@ -183,10 +186,19 @@ class ProductController {
 
     async getById(req, res) {
         let { id, name } = req.body;
+        let product;
 
         try {
-            if (id == '') {
+            if (id == undefined) {
                 await existsOrError(name, 'Nome não informado!');
+                product = await Product.findAll({
+                    where: {
+                        name: { [Op.like]: `%${name}%` }
+                    }
+                });
+            } else {
+                await existsOrError(id, 'ID não informado!');
+                product = await Product.findOne({ where: { id } });
             }
 
         } catch (err) {
@@ -195,15 +207,6 @@ class ProductController {
                 err
             });
         }
-
-        let product = await Product.findOne({
-            where: {
-                [Op.or]: [
-                    { id },
-                    { name }
-                ]
-            }
-        });
 
         if (product) {
             return res.json({
