@@ -20,9 +20,11 @@ class UserController {
     async create(req, res) {
         let { name, email, admin, telephone, birthDate } = req.body;
 
+        name = name || '';
         let nameBySpace = name.split(' ');
         let firstName = nameBySpace[0];
         let lastName;
+        
         if(nameBySpace.length > 1) {
             lastName = nameBySpace[nameBySpace.length - 1];
         } else {
