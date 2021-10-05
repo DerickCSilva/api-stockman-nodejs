@@ -184,7 +184,7 @@ class ProductController {
 
     }
 
-    async getById(req, res) {
+    async getByIdOrName(req, res) {
         let { id, name } = req.body;
         let product;
 
