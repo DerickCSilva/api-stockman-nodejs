@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
     } else {
         res.json({
             status: 401,
-            err: 'Token inválido ou inspirado, logue novamente no sistema!'
+            err: 'Não foi passado o Token!'
         });
     }
 }
