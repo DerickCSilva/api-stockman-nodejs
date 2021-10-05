@@ -31,6 +31,8 @@ class UserController {
 
         let username = (firstName + lastName).toLowerCase();
 
+        username = username.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
         try {
             await existsOrError(name, 'Nome do usuário não informado.');
             await existsOrError(email, 'E-mail não informado.');
