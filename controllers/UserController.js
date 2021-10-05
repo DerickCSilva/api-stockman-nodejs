@@ -113,7 +113,7 @@ class UserController {
 
         if (!confirmPass) {
             return res.json({
-                status: res.statusCode,
+                status: 401,
                 err: 'Senha inválida!'
             });
         }
