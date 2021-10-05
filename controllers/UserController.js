@@ -200,8 +200,8 @@ class UserController {
             await existsOrError(telephone, 'Telefone do usuário não informado!');
             await existsOrError(birthDate, 'Data de nascimento não informada!');
         } catch (err) {
-            return res.status(400).json({
-                status: res.statusCode,
+            return res.json({
+                status: 400,
                 err
             });
         }
@@ -237,15 +237,14 @@ class UserController {
                     err: 'Usuário alterado com sucesso!'
                 });
             } else {
-                return res.status(404).json({
-                    status: res.statusCode,
+                return res.json({
+                    status: 404,
                     err: 'Usuário não encontrado!'
                 });
             }
         } catch (err) {
-            console.log(err);
-            return res.status(500).json({
-                status: res.statusCode,
+            return res.json({
+                status: 400,
                 err
             });
         }
