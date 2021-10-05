@@ -145,8 +145,8 @@ class ProductController {
             }
         } catch (err) {
             console.log(err);
-            return res.status(500).json({
-                status: res.statusCode,
+            return res.json({
+                status: 500,
                 err
             });
         }
@@ -182,7 +182,7 @@ class ProductController {
     }
 
     async getById(req, res) {
-        let { id } = req.body;
+        let { id, name } = req.body;
 
         try {
             await existsOrError(id, 'ID não informado!');
