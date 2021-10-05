@@ -35,13 +35,15 @@ class UserController {
 
         username = username.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
+        let birthDateForPass;
+        
         try {
             await existsOrError(name, 'Nome do usuário não informado.');
             await existsOrError(email, 'E-mail não informado.');
             await existsOrError(telephone, 'Telefone não informado.');
             await existsOrError(birthDate, 'Data de nascimento não informado.');
 
-            birthDate = birthDate.replace(/\//g, '');
+            birthDateForPass = birthDate.replace(/\//g, '');
 
             let user = await User.findOne({
                 where: {
@@ -65,7 +67,7 @@ class UserController {
             });
         }
 
-        let hash = encryptPassword(birthDate);
+        let hash = encryptPassword(birthDateForPass);
 
         await User.create({ ...req.body, password: hash, username });
 
