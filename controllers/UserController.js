@@ -92,7 +92,7 @@ class UserController {
         }
 
         if (!user) {
-            return res.status(200).json({
+            return res.json({
                 status: 404,
                 err: 'Usuário não encontrado!'
             });
@@ -103,7 +103,7 @@ class UserController {
         let confirmPass = bcrypt.compareSync(password, user.password);
 
         if (!confirmPass) {
-            return res.status(401).json({
+            return res.json({
                 status: res.statusCode,
                 err: 'Senha inválida!'
             });
@@ -116,7 +116,7 @@ class UserController {
             admin
         }
 
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' }, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '4h' }, (err, token) => {
             if (err) {
                 return res.status(500).json({
                     status: res.statusCode,

@@ -6,24 +6,27 @@ let router = express.Router();
 let UserController = require("../controllers/UserController");
 let ProductController = require("../controllers/ProductController");
 
+// Middleware
+const authentication = require('../middlewares/authentication');
+
 // Routes
 
 // GET's
-router.get('/users/:page', UserController.all);
-router.get('/products/:page', ProductController.all);
+router.get('/users/:page', authentication, UserController.all);
+router.get('/products/:page', authentication, ProductController.all);
 
 // POST's
-router.post('/user', UserController.create);
+router.post('/user', authentication, UserController.create);
 router.post('/signin', UserController.signin);
-router.post('/product', ProductController.create);
-router.post('/userId', UserController.getByUsername);
-router.post('/productId', ProductController.getByIdOrName);
+router.post('/product', authentication, ProductController.create);
+router.post('/userId', authentication, UserController.getByUsername);
+router.post('/productId', authentication, ProductController.getByIdOrName);
 
 // PATCH's
-router.patch('/user', UserController.edit);
-router.patch('/product', ProductController.edit);
+router.patch('/user', authentication, UserController.edit);
+router.patch('/product', authentication, ProductController.edit);
 
 // DELETE's
-router.delete('/product', ProductController.delete);
+router.delete('/product', authentication, ProductController.delete);
 
 module.exports = router;
