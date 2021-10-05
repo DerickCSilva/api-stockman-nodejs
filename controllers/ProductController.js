@@ -19,14 +19,14 @@ class ProductController {
             let product = await Product.findOne({ where: { name } });
 
             if (product) {
-                return res.status(302).json({
-                    status: res.statusCode,
+                return res.json({
+                    status: 302,
                     err: 'Produto já cadastrado.'
                 });
             }
         } catch (err) {
-            return res.status(500).json({
-                status: res.statusCode,
+            return res.json({
+                status: 400,
                 err
             });
         }
@@ -39,8 +39,8 @@ class ProductController {
                 err: 'Produto cadastrado!'
             });
         } catch (err) {
-            return res.status(500).json({
-                status: res.statusCode,
+            return res.json({
+                status: 500,
                 err
             });
         }
