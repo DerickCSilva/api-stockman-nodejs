@@ -24,7 +24,7 @@ class UserController {
         let nameBySpace = name.split(' ');
         let firstName = nameBySpace[0];
         let lastName;
-        
+
         if(nameBySpace.length > 1) {
             lastName = nameBySpace[nameBySpace.length - 1];
         } else {
@@ -38,7 +38,6 @@ class UserController {
         try {
             await existsOrError(name, 'Nome do usuário não informado.');
             await existsOrError(email, 'E-mail não informado.');
-            await existsOrError(admin, 'Usuário administrador não informado.');
             await existsOrError(telephone, 'Telefone não informado.');
             await existsOrError(birthDate, 'Data de nascimento não informado.');
 
