@@ -279,15 +279,33 @@ class UserController {
 
     }
 
-    async getByUsername(req, res) {
-        let { username } = req.body;
-
-        let user = await User.findOne({ where: { username } });
+    async getByIdOrUsername(req, res) {
+        let { id, username } = req.body;
+        let user;
+        
+        try {
+            if (id.length == 0) {
+                await existsOrError(username, 'Usuário não informado!');
+                user = await user.findAll({
+                    where: {
+                        username: { [Op.like]: `%${ username }%` }
+                    }
+                });
+            } else {
+                await existsOrError(id, 'ID não informado!');
+                user = await User.findAll({ where: { id } });
+            }
+        } catch (err) {
+            return res.json({
+                status: 400,
+                err
+            });
+        }
 
         if (user) {
             return res.json({
                 status: res.statusCode,
-                user
+                product
             });
         } else {
             return res.json({
