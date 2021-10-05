@@ -22,7 +22,9 @@ class UserController {
 
         let nameBySpace = name.split(' ');
         let firstName = nameBySpace[0];
-        let lastName = nameBySpace[nameBySpace.length - 1];
+        if(nameBySpace.length > 1) {
+            let lastName = nameBySpace[nameBySpace.length - 1];
+        }
 
         let username = (firstName + lastName).toLowerCase();
 

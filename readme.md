@@ -2,7 +2,7 @@
 API desenvolvida para ser utilizada no front-end do projeto da faculdade.
 
 ---
-## Dependências
+## Dependências do projeto
 - bcrypt 
 - cors 
 - dotenv
