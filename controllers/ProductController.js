@@ -198,7 +198,7 @@ class ProductController {
                 });
             } else {
                 await existsOrError(id, 'ID não informado!');
-                product = await Product.findOne({ where: { id } });
+                product = await Product.findAll({ where: { id } });
             }
 
         } catch (err) {
