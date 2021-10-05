@@ -286,7 +286,7 @@ class UserController {
         try {
             if (id.length == 0) {
                 await existsOrError(username, 'Usuário não informado!');
-                user = await user.findAll({
+                user = await User.findAll({
                     where: {
                         username: { [Op.like]: `%${ username }%` }
                     }
@@ -296,6 +296,7 @@ class UserController {
                 user = await User.findAll({ where: { id } });
             }
         } catch (err) {
+            console.log(err);
             return res.json({
                 status: 400,
                 err
@@ -305,7 +306,7 @@ class UserController {
         if (user) {
             return res.json({
                 status: res.statusCode,
-                product
+                user
             });
         } else {
             return res.json({
