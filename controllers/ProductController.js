@@ -202,7 +202,6 @@ class ProductController {
             }
 
         } catch (err) {
-            console.log(err);
             return res.json({
                 status: 400,
                 err
