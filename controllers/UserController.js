@@ -196,8 +196,9 @@ class UserController {
         try {
             await existsOrError(id, 'ID do usuário não informado!');
             await existsOrError(name, 'Nome do usuário não informado!');
-            await existsOrError(birthDate, 'Data de nascimento não informada!');
             await existsOrError(email, 'E-mail do usuário não informado!');
+            await existsOrError(telephone, 'Telefone do usuário não informado!');
+            await existsOrError(birthDate, 'Data de nascimento não informada!');
         } catch (err) {
             return res.status(400).json({
                 status: res.statusCode,
