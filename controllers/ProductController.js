@@ -160,12 +160,12 @@ class ProductController {
 
             let product = await Product.destroy({ where: { id } });
 
-            if(product) {
+            if (product) {
                 return res.json({
                     status: 200,
                     err: 'Produto deletado com sucesso!'
                 });
-            } else {                
+            } else {
                 return res.json({
                     status: 404,
                     err: 'Produto inexistente!'
@@ -185,7 +185,9 @@ class ProductController {
         let { id, name } = req.body;
 
         try {
-            await existsOrError(id, 'ID não informado!');
+            if (id == '') {
+                await existsOrError(name, 'Nome não informado!');
+            }
 
         } catch (err) {
             return res.json({
@@ -194,7 +196,14 @@ class ProductController {
             });
         }
 
-        let product = await Product.findOne({ where: { id } });
+        let product = await Product.findOne({
+            where: {
+                [Op.or]: [
+                    { id },
+                    { name }
+                ]
+            }
+        });
 
         if (product) {
             return res.json({
