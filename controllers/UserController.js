@@ -36,7 +36,7 @@ class UserController {
         username = username.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
         let birthDateForPass;
-        
+
         try {
             await existsOrError(name, 'Nome do usuário não informado.');
             await existsOrError(email, 'E-mail não informado.');
@@ -211,16 +211,22 @@ class UserController {
 
         let nameBySpace = name.split(' ');
         let firstName = nameBySpace[0];
-        let lastName = nameBySpace[nameBySpace.length - 1];
+        let lastName;
+
+        if(nameBySpace.length > 1) {
+            lastName = nameBySpace[nameBySpace.length - 1];
+        } else {
+            lastName = '';
+        }
 
         let username = (firstName + lastName).toLowerCase();
 
-        birthDate = birthDate.replace(/\//g, '');
+        let birthDateForPass = birthDate.replace(/\//g, '');
 
         try {
             let user = await User.findOne({ where: { id } });
 
-            let hash = encryptPassword(birthDate);
+            let hash = encryptPassword(birthDateForPass);
 
             if (user) {
                 await User.update({
