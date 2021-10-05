@@ -287,6 +287,7 @@ class UserController {
         let user;
 
         try {
+            id = id || '';
             if (id.length == 0) {
                 await existsOrError(username, 'Username não informado!');
                 user = await User.findAll({
