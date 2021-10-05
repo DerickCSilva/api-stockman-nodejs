@@ -18,33 +18,39 @@ const encryptPassword = (password) => {
 // class UserController
 class UserController {
     async create(req, res) {
-        let { name, email, admin, telephone, birthDate } = req.body;
-
-        name = name || '';
-        let nameBySpace = name.split(' ');
-        let firstName = nameBySpace[0];
-        let lastName;
-
-        if(nameBySpace.length > 1) {
-            lastName = nameBySpace[nameBySpace.length - 1];
-        } else {
-            lastName = '';
-        }
-
-        let username = (firstName + lastName).toLowerCase();
-
-        username = username.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-
-        let birthDateForPass;
+        let { name, email, username, telephone, birthDate } = req.body;
 
         try {
             await existsOrError(name, 'Nome do usuário não informado.');
             await existsOrError(email, 'E-mail não informado.');
             await existsOrError(telephone, 'Telefone não informado.');
             await existsOrError(birthDate, 'Data de nascimento não informado.');
+        } catch (err) {
+            return res.json({
+                status: 400,
+                err
+            });
+        }
 
-            birthDateForPass = birthDate.replace(/\//g, '');
+        if(!username) {
+            let nameBySpace = name.split(' ');
+            let firstName = nameBySpace[0];
+            let lastName;
+    
+            if(nameBySpace.length > 1) {
+                lastName = nameBySpace[nameBySpace.length - 1];
+            } else {
+                lastName = '';
+            }
+    
+            username = (firstName + lastName).toLowerCase();
+    
+            username = username.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+        }
 
+        let birthDateForPass = birthDate.replace(/\//g, '');;
+
+        try {
             let user = await User.findOne({
                 where: {
                     [Op.or]: [
@@ -55,9 +61,9 @@ class UserController {
             });
 
             if (user) {
-                return res.status(302).json({
-                    status: res.statusCode,
-                    err: 'Usuário já cadastrado.'
+                return res.json({
+                    status: 302,
+                    err: 'E-mail ou Username já cadastrado!'
                 });
             }
         } catch (err) {
@@ -209,18 +215,6 @@ class UserController {
             });
         }
 
-        let nameBySpace = name.split(' ');
-        let firstName = nameBySpace[0];
-        let lastName;
-
-        if(nameBySpace.length > 1) {
-            lastName = nameBySpace[nameBySpace.length - 1];
-        } else {
-            lastName = '';
-        }
-
-        let username = (firstName + lastName).toLowerCase();
-
         let birthDateForPass = birthDate.replace(/\//g, '');
 
         try {
@@ -232,7 +226,6 @@ class UserController {
                 await User.update({
                     name,
                     email,
-                    username,
                     password: hash,
                     admin,
                     telephone,
