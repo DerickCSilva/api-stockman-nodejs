@@ -216,7 +216,7 @@ class ProductController {
         } else {
             return res.json({
                 status: 404,
-                err: 'Produto não encontrado!'
+                err: 'Nenhum produto encontrado!'
             });
         }
     }

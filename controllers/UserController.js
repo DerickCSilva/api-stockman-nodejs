@@ -32,19 +32,19 @@ class UserController {
             });
         }
 
-        if(!username) {
+        if (!username) {
             let nameBySpace = name.split(' ');
             let firstName = nameBySpace[0];
             let lastName;
-    
-            if(nameBySpace.length > 1) {
+
+            if (nameBySpace.length > 1) {
                 lastName = nameBySpace[nameBySpace.length - 1];
             } else {
                 lastName = '';
             }
-    
+
             username = (firstName + lastName).toLowerCase();
-    
+
             username = username.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
         }
 
@@ -285,13 +285,13 @@ class UserController {
     async getByIdOrUsername(req, res) {
         let { id, username } = req.body;
         let user;
-        
+
         try {
             if (id.length == 0) {
-                await existsOrError(username, 'Usuário não informado!');
+                await existsOrError(username, 'Username não informado!');
                 user = await User.findAll({
                     where: {
-                        username: { [Op.like]: `%${ username }%` }
+                        username: { [Op.like]: `%${username}%` }
                     }
                 });
             } else {
@@ -315,6 +315,38 @@ class UserController {
             return res.json({
                 status: 404,
                 err: 'Usuário não encontrado!'
+            });
+        }
+    }
+
+    async searchUser(req, res) {
+        let { name } = req.body;
+        let user;
+
+        try {
+            await existsOrError(name, 'Nome do usuário não informado!');
+            user = await User.findAll({
+                where: {
+                    username: { [Op.like]: `%${name}%` }
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            return res.json({
+                status: 400,
+                err
+            });
+        }
+
+        if (user) {
+            return res.json({
+                status: res.statusCode,
+                user
+            });
+        } else {
+            return res.json({
+                status: 404,
+                err: 'Nenhum usuário encontrado!'
             });
         }
     }

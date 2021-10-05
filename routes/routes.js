@@ -20,6 +20,7 @@ router.post('/user', authentication, UserController.create);
 router.post('/signin', UserController.signin);
 router.post('/product', authentication, ProductController.create);
 router.post('/userId', authentication, UserController.getByIdOrUsername);
+router.post('/search', authentication, UserController.searchUser);
 router.post('/productId', authentication, ProductController.getByIdOrName);
 
 // PATCH's
