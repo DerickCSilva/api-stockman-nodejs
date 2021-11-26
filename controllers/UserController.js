@@ -125,7 +125,7 @@ class UserController {
             admin
         }
 
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '4h' }, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '48h' }, (err, token) => {
             if (err) {
                 return res.status(500).json({
                     status: res.statusCode,
@@ -300,7 +300,6 @@ class UserController {
                 user = await User.findAll({ where: { id } });
             }
         } catch (err) {
-            console.log(err);
             return res.json({
                 status: 400,
                 err
