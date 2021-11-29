@@ -189,6 +189,7 @@ class ProductController {
         let product;
 
         try {
+            id = id || '';
             if (id.length == 0) {
                 await existsOrError(name, 'Nome não informado!');
                 product = await Product.findAll({
