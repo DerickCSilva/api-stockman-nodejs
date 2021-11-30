@@ -1,5 +1,49 @@
 # API Stockman Node.js
 API desenvolvida para ser utilizada no front-end do projeto da faculdade.
+Esse é o projeto proposto pelo Prof. Daniel Ferreira de Barros Junior, desenvolvido por um grupo de jovens universitários cujo o objetivo era desenvolver uma aplicação web que se encaixava com os requesitos para o projeto semestral. 😎<br>
+O intuito principal dessa aplicação é ter uma plataforma onde funcionários de um super mercado consiga controlar o estoque do mesmo. 📚😁<br>
+<b><i>PS: Este repositório tem os arquivos da parte Back-end.</i></b>
+
+---
+# Membros do Grupo
+<li>Alecssander Matheus Garabetian Borba - RA 920108557</li>
+<li>Derick Cardoso da Silva - RA 920107315</li>
+<li>Pedro Lorencini - RA 920124731</li>
+<li>Rodrigo Santos Rocha - RA 920107527</li>
+<li>Ruan Araujo da Silva - RA 920110242</li>
+<li>Ygor Vinicius Souza da Silva - RA 920109112</li>
+<li>Mariana van Rossum Peixoto - RA 920105007</li>
+<li>Viviane Silva da Assunção - RA 920105613</li>
+<li>Augusto José Ambrósio - RA 920105574</li>
+
+---
+# Parte Front-end
+Pelo grupo ter separado em dois repositório a parte back-end e em outro a parte front-end, abaixo irei deixar o link que direciona para o repositório da parte Front-end.
+<li>Repositório front-end: https://github.com/Ruan4S/stockman-frontend</li>
+
+---
+
+# Tecnologias Utilizadas
+Para fazer essa aplicação utilizamos as seguintes tecnlogias:
+<li>Front-end:</ul>
+<ul>HTML</ul>
+<ul>CSS</ul>
+<ul>SASS</ul>
+<ul>Axios</ul>
+<ul>JavaScript</ul>
+
+<li>Back-end:</li>
+<ul>JavaScript</ul>
+<ul>Node.js</ul>
+
+<li>Banco de dados:</li>
+<ul>MySQL</ul>
+
+# Hospedagem
+O Back-end e banco de dados MySQL foram hosperado na Heroku.
+<li>Front-end: https://ruan4s.github.io/stockman-frontend/</li>
+<li>Back-end: https://api-stockman-nodejs.herokuapp.com/api</li>
+<b><i>PS: Se tentar a URL Back-end, vai dar erro de rota por não existir essa rota e você não ter acesso.</i></b>
 
 ---
 ## Dependências do projeto
